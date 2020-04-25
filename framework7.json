@@ -1,0 +1,19 @@
+{
+  "cwd": "/Users/timrohnacher/WM20009/salesapp-dev",
+  "type": [
+    "web"
+  ],
+  "name": "Sales App",
+  "framework": "core",
+  "template": "blank",
+  "bundler": false,
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": true,
+    "color": "#008238",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": true
+  },
+  "customBuild": false
+}
