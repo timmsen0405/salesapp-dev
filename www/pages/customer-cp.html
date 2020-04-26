@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div class="page" data-name="form-customer-cockpit">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+                <div class="title">Customer Cockpit</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar tabbar toolbar-bottom">
+            <div class="toolbar-inner">
+                <a href="#tab-1" class="tab-link tab-link-active"><i class="f7-icons">person_1</i></a>
+                <a href="#tab-2" class="tab-link"><i class="f7-icons">square_arrow_up</i></a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="tabs-swipeable-wrap">
+            <div class="tabs">
+
+                <div id="tab-1" class="page-content tab tab-active">
+                    <div class="block">
+                        <div class="block-title">You can request new customer master data here.</div>
+                        <form class="list" id="customer-data">
+                            <div class="list accordion-list">
+                                <ul>
+                                    <li class="accordion-item">
+                                        <a href="#" class="item-content item-link">
+                                            <div class="item-inner">
+                                                <div class="item-title">General Data</div>
+                                            </div>
+                                        </a>
+                                        <div class="accordion-item-content">
+                                            <div class="block">
+                                                <p>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Name 1</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="name1"
+                                                                            placeholder="Max. 30 characters.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Name 2</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="name2"
+                                                                            placeholder="Max. 30 characters.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Street</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="street"
+                                                                            placeholder="Enter street here.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Houseno.</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="houseno"
+                                                                            placeholder="Enter houseno here.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">ZIP code</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="zipcode"
+                                                                            placeholder="Enter zip code here.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">City</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="city"
+                                                                            placeholder="Enter city here.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Phone</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="tel" name="tel"
+                                                                            placeholder="Phone number">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Mobile</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="tel" name="mobilephone"
+                                                                            placeholder="Mobile phone number">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Fax</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="tel" name="fax"
+                                                                            placeholder="Fax number">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">E-mail</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="email" name="email"
+                                                                            placeholder="E-mail">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Industry</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="brsch">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Customer Class
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="kukla">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion-item">
+                                        <a href="#" class="item-content item-link">
+                                            <div class="item-inner">
+                                                <div class="item-title">Sales Data</div>
+                                            </div>
+                                        </a>
+                                        <div class="accordion-item-content">
+                                            <div class="block">
+                                                <p>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Sales
+                                                                        Organisation
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="vkorg">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Distribution
+                                                                        Channel
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="vtw">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Divisiion</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="spart">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Sales Office
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="vkbur">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Sales Group</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="vkgrp">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Terms of payment
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="zbed">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Cash discount
+                                                                        base</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <select name="konda">
+                                                                            <option value="" selected>- please select
+                                                                                from list -</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <div class="block-title">Partner Data</div>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Trader / Company
+                                                                        Central
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="zkpartner"
+                                                                            placeholder="(Optional) Trader / Company Central">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Bill-to Party
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="billto"
+                                                                            placeholder="(Optional) Bill-to party">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Payer</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="payer"
+                                                                            placeholder="(Optional) Payer">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Sales
+                                                                        representative
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="zvpartner"
+                                                                            placeholder="(Optional) Sales representative">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Back-office</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="zipartner"
+                                                                            placeholder="(Optional) Back-office manager">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">Key account</div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="text" name="ympartner"
+                                                                            placeholder="(Optional) Key account manager">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="accordion-item">
+                                        <a href="#" class="item-content item-link">
+                                            <div class="item-inner">
+                                                <div class="item-title">Financial Data</div>
+                                            </div>
+                                        </a>
+                                        <div class="accordion-item-content">
+                                            <div class="block">
+                                                <p>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="item-checkbox item-content">
+                                                                <input type="checkbox" name="cbBill2Mail"
+                                                                    id="cb-bill2mail" />
+                                                                <i class="icon icon-checkbox"></i>
+                                                                <div class="item-inner">
+                                                                    <div class="item-title">PDF invoicing</div>
+                                                                </div>
+                                                            </label>
+                                                        </li>
+                                                        <li class="bill2mail noDisplay">
+                                                            <div class="item-content item-input">
+                                                                <div class="item-inner">
+                                                                    <div class="item-title item-label">E-mail for PDF
+                                                                        invoicing
+                                                                    </div>
+                                                                    <div class="item-input-wrap">
+                                                                        <input type="email" name="bill2mail-adress"
+                                                                            placeholder="E-Mail des Rechnungsempfängers.">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list no-hairlines md">
+                                <ul>
+                                    <li class="align-top">
+                                        <div class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Comments</div>
+                                                <div class="item-input-wrap">
+                                                    <textarea placeholder="Your comemnts go here."
+                                                        class="resizable"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                        <div class="block block-strong">
+                            <p class="row">
+                                <a href="#" class="col button button-raised fill-form-from-data">Test Data</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-2" class="page-content tab">
+                    <div class="block">
+                        <div class="block-title">Step 4: Send master data request to SAP.</div>
+                        <div class="block">
+                            <div class="list">
+                                <ul class="emptyFields"></ul>
+                            </div>
+                        </div>
+                        <div class="block block-strong">
+                            <p class="row">
+                                <a href="#" class="col button button-raised send">Send</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -34,6 +34,12 @@
 
   <link rel="manifest" href="salesapp.webmanifest">
 
+  <!-- Prefetch the following resources to have all functionalities available offline-->
+  <link rel="prefetch" href="pages/quotation-cp.html">
+  <link rel="prefetch" href="pages/customer-cp.html">
+  <link rel="prefetch" href="pages/shipto-cp.html">
+  <link rel="prefetch" href="pages/404.html">
+
 </head>
 
 <body>
@@ -41,12 +47,25 @@
 
     <!-- Your main view, should have "view-main" class -->
     <div class="view view-main view-init safe-areas">
+
       <div class="page" data-name="home">
         <!-- Top Navbar -->
         <div class="navbar navbar-large">
           <div class="navbar-bg"></div>
-          <div class="navbar-inner sliding">
-            <div class="title">Sales App</div>
+          <div class="navbar-inner">
+            <div class="left">
+              <a href="#" class="link icon-only panel-open disabled" data-panel="left">
+                <i class="icon f7-icons if-not-md">menu</i>
+                <i class="icon material-icons if-md">menu</i>
+              </a>
+            </div>
+            <div class="title sliding">Sales App</div>
+            <div class="right">
+              <a href="#" class="link icon-only panel-open disabled" data-panel="right">
+                <i class="icon f7-icons if-not-md">gear_alt</i>
+                <i class="icon material-icons if-md">settings</i>
+              </a>
+            </div>
             <div class="title-large">
               <div class="title-large-text">Sales App</div>
             </div>
@@ -55,19 +74,270 @@
         <!-- Toolbar-->
         <div class="toolbar toolbar-bottom">
           <div class="toolbar-inner">
-            <a href="#" class="link">Left Link</a>
-            <a href="#" class="link">Right Link</a>
+            <a href="#" class="link popup-open" data-popup="#imprint">Imprint</a>
+            <a href="#" class="link" id="notify-test">Test Notification</a>
           </div>
         </div>
+
         <!-- Scrollable page content-->
         <div class="page-content">
+          <div class="block-title">Welcome!</div>
           <div class="block block-strong">
-            <p>Here is your blank Framework7 app. Let's see what we have here.</p>
+            <p>This will contain further useful information some time in the future.</p>
+            <p>Use left and right panels to navigate.</p>
           </div>
+          <div class="block block-strong">
+            <div class="row">
+              <!--Some content goes here in the future-->
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Popup: Imprint -->
+      <div class="popup" id="imprint">
+        <div class="view">
+          <div class="page">
+            <div class="navbar">
+              <div class="navbar-bg"></div>
+              <div class="navbar-inner">
+                <div class="title">Imprint</div>
+                <div class="right">
+                  <a href="#" class="link popup-close">Close</a>
+                </div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="block">
+                <p>Imprint content goes here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login Screen -->
+      <div class="login-screen" id="login-screen">
+        <!--  <div class="view"> -->
+        <div class="page">
+          <div class="page-content login-screen-content">
+            <div class="login-screen-title"><img src="assets/icons/144x144.png"></div>
+            <div class="login-screen-title">Sales App</div>
+            <form id="login">
+              <div class="list">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Username</div>
+                      <div class="item-input-wrap">
+                        <input type="text" name="username" placeholder="Your username">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Password</div>
+                      <div class="item-input-wrap">
+                        <input type="password" name="password" placeholder="Your password">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="list">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link list-button login-button" id="sign-in">Sign In</a>
+                  </li>
+                </ul>
+                <div class="block-footer">Forgot Username or password?</div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+
+      <!--User Profile-->
+      <div class="popup" id='user-profile'>
+        <div class="page">
+          <div class="view">
+            <div class="navbar">
+              <div class="navbar-bg"></div>
+              <div class="navbar-inner sliding">
+                <div class="left">
+                  <a href="#" class="link popup-close">
+                    <i class="icon icon-back"></i>
+                    <span class="if-not-md">Back</span>
+                  </a>
+                </div>
+                <div class="title">User Profile</div>
+                <div class="right">
+                  <a class="link tg-edit">Edit</a>
+                </div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="block-title">Your User data and preferences</div>
+              <form class="list form-store-data" id="user-data">
+                <ul>
+                  <li>
+                    <div class="row">
+                      <div class="col">
+                        <div class="item-content item-input">
+                          <div class="item-inner">
+                            <div class="item-title item-label">Surname</div>
+                            <div class="item-input-wrap">
+                              <input type="text" name="surname" placeholder="Your surname">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="item-content item-input">
+                          <div class="item-inner">
+                            <div class="item-title item-label">Last Name</div>
+                            <div class="item-input-wrap">
+                              <input type="text" name="lastname" placeholder="Your last name">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Sales Rep. ID</div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="zvpartner" placeholder="Your sales rep. ID">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Sales Organisation
+                        </div>
+                        <div class="item-input-wrap">
+                          <select name="vkorg">
+                            <option value=null selected>- please select -</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Distribution Channel</div>
+                        <div class="item-input-wrap">
+                          <select name="vtw">
+                            <option value=null selected>- please select -</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Divisiion</div>
+                        <div class="item-input-wrap">
+                          <select name="spart">
+                            <option value=null selected>- please select -</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Sales Office</div>
+                        <div class="item-input-wrap">
+                          <select name="vkbur">
+                            <option value=null selected>- please select -</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Sales Group</div>
+                        <div class="item-input-wrap">
+                          <select name="vkgrp">
+                            <option value=null selected>- please select -</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel panel-left panel-cover theme-dark panel-init">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Menu</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">
+              <div class="block">
+                <div class="list links-list">
+                  <ul>
+                    <li><a class="panel-close" href="/quotation-cp/">Quotation Cockpit</a></li>
+                    <li><a class="panel-close" href="/customer-cp/">Customer Cockpit</a></li>
+                    <li><a class="panel-close" href="/shipto-cp/">Ship-to Cockpit</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Preferences</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">
+              <div class="list links-list">
+                <ul>
+                  <li><a class="panel-close popup-open" href="#" data-popup="#user-profile">User profile</a></li>
+                  <li><a class="panel-close login-screen-open" href="#" data-login-screen="#login-screen"
+                      id="logout">Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
@@ -78,6 +348,8 @@
   <script src="js/routes.js"></script>
   <!-- App scripts -->
   <script src="js/app.js"></script>
+
+
 </body>
 
 </html>
