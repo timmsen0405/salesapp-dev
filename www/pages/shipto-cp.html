@@ -1,334 +1,317 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
-    <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/app.css">
-</head>
-
-<body>
-
-    <div class="page" data-name="form-ship-to-cockpit">
-        <div class="navbar">
-            <div class="navbar-bg"></div>
-            <div class="navbar-inner sliding">
-                <div class="left">
-                    <a href="#" class="link back">
-                        <i class="icon icon-back"></i>
-                        <span class="if-not-md">Back</span>
-                    </a>
-                </div>
-                <div class="title">Ship-to Cockpit</div>
+<div class="page" data-name="form-ship-to-cockpit">
+    <div class="navbar">
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="icon icon-back"></i>
+                    <span class="if-not-md">Back</span>
+                </a>
             </div>
+            <div class="title">Ship-to Cockpit</div>
         </div>
-
-        <!-- Toolbar -->
-        <div class="toolbar tabbar toolbar-bottom">
-            <div class="toolbar-inner">
-                <a href="#tab-1" class="tab-link tab-link-active"><i class="f7-icons">building_2_fill</i></a>
-                <a href="#tab-2" class="tab-link"><i class="f7-icons">square_arrow_up</i></a>
-            </div>
-        </div>
-
-        <!-- Page content -->
-        <div class="tabs-swipeable-wrap">
-            <div class="tabs">
-
-                <div id="tab-1" class="page-content tab tab-active">
-                    <div class="block">
-                        <div class="block-title">This is the place to create ship-to master data.</div>
-                        <div class="block-title">Address & Communication data.</div>
-                        <form class="list" id="ship-to-data">
-                            <div class="list">
-                                <ul>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Name 1</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="name1" placeholder="Max. 30 characters.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Name 2</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="name2" placeholder="Max. 30 characters.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Street</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="street" placeholder="Enter street here.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Houseno.</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="houseno" placeholder="Enter houseno here.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">ZIP code</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="zipcode"
-                                                        placeholder="Enter zip code here.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">City</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="city" placeholder="Enter city here.">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Phone</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="tel" name="tel" placeholder="Phone number">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">E-mail</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="email" name="email" placeholder="E-mail">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label class="item-checkbox item-content">
-                                            <input type="checkbox" name="cbEpodMail" checked="false" />
-                                            <i class="icon icon-checkbox"></i>
-                                            <div class="item-inner">
-                                                <div class="item-title">Send ePOD via e-mail</div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Market Segment</div>
-                                                <div class="item-input-wrap">
-                                                    <select name="bran1">
-                                                        <option value="" selected>- please select from list -</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list accordion-list">
-                                <ul>
-                                    <li class="accordion-item">
-                                        <a href="#" class="item-content item-link">
-                                            <div class="item-inner">
-                                                <div class="item-title">Additional Data (from User Profile)</div>
-                                            </div>
-                                        </a>
-                                        <div class="accordion-item-content">
-                                            <div class="block">
-                                                <p>
-                                                    <ul>
-                                                        <div class="block-title">Sales Area Data</div>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Sales
-                                                                        Organisation
-                                                                    </div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="vkorg">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Distribution
-                                                                        Channel
-                                                                    </div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="vtw">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Divisiion</div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="spart">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Sales Office
-                                                                    </div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="vkbur">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Sales Group</div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="vkgrp">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">Sales
-                                                                        representative
-                                                                    </div>
-                                                                    <div class="item-input-wrap">
-                                                                        <input type="text" name="zvpartner"
-                                                                            placeholder="(Optional) Sales representative">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <div class="block-title">Geo Location Settings</div>
-                                                        <li>
-                                                            <div class="block block-strong text-align-center">
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <div class="stepper stepper-fill stepper-init"
-                                                                            data-autorepeat="true"
-                                                                            data-autorepeat-dynamic="true">
-                                                                            <div class="stepper-button-minus"></div>
-                                                                            <div class="stepper-input-wrap">
-                                                                                <input type="text" value="200" min="50"
-                                                                                    max="1000" step="10"
-                                                                                    name="gpsradius" />
-                                                                            </div>
-                                                                            <div class="stepper-button-plus"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="item-content item-input">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">GPS Update
-                                                                        Behaviour
-                                                                    </div>
-                                                                    <div class="item-input-wrap">
-                                                                        <select name="gpsbehave">
-                                                                            <option value="" selected>- please select
-                                                                                from list -</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list no-hairlines md">
-                                <ul>
-                                    <li class="align-top">
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Comments</div>
-                                                <div class="item-input-wrap">
-                                                    <textarea placeholder="Your comemnts go here."
-                                                        class="resizable"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                        <div class="block block-strong">
-                            <p class="row">
-                                <a href="#" class="col button button-raised fill-form-from-data">Test Data</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-2" class="page-content tab">
-                    <div class="block">
-                        <div class="block-title">Send Ship-to master data request to SAP.</div>
-                        <div class="block">
-                            <div class="list">
-                                <ul class="emptyFields"></ul>
-                            </div>
-                        </div>
-                        <div class="block block-strong">
-                            <p class="row">
-                                <a href="#" class="col button button-raised send">Send</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
-</body>
+    <!-- Toolbar -->
+    <div class="toolbar tabbar toolbar-bottom">
+        <div class="toolbar-inner">
+            <a href="#tab-1" class="tab-link tab-link-active"><i class="f7-icons">building_2_fill</i></a>
+            <a href="#tab-2" class="tab-link"><i class="f7-icons">square_arrow_up</i></a>
+        </div>
+    </div>
 
-</html>
+    <!-- Page content -->
+    <div class="tabs-swipeable-wrap">
+        <div class="tabs">
+
+            <div id="tab-1" class="page-content tab tab-active">
+                <div class="block">
+                    <div class="block-title">This is the place to create ship-to master data.</div>
+                    <div class="block-title">Address & Communication data.</div>
+                    <form class="list" id="ship-to-data">
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Name 1</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="name1" placeholder="Max. 30 characters.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Name 2</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="name2" placeholder="Max. 30 characters.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Street</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="street" placeholder="Enter street here.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Houseno.</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="houseno" placeholder="Enter houseno here.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">ZIP code</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="zipcode" placeholder="Enter zip code here.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">City</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="city" placeholder="Enter city here.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Phone</div>
+                                            <div class="item-input-wrap">
+                                                <input type="tel" name="tel" placeholder="Phone number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">E-mail</div>
+                                            <div class="item-input-wrap">
+                                                <input type="email" name="email" placeholder="E-mail">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="item-checkbox item-content">
+                                        <input type="checkbox" name="cbEpodMail" checked="false" />
+                                        <i class="icon icon-checkbox"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Send ePOD via e-mail</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Market Segment</div>
+                                            <div class="item-input-wrap">
+                                                <select name="bran1">
+                                                    <option value="" selected>- please select from list -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list accordion-list">
+                            <ul>
+                                <li class="accordion-item">
+                                    <a href="#" class="item-content item-link">
+                                        <div class="item-inner">
+                                            <div class="item-title">Additional Data (from User Profile)</div>
+                                        </div>
+                                    </a>
+                                    <div class="accordion-item-content">
+                                        <div class="block">
+                                            <p>
+                                                <ul>
+                                                    <div class="block-title">Sales Area Data</div>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Sales
+                                                                    Organisation
+                                                                </div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="vkorg">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Distribution
+                                                                    Channel
+                                                                </div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="vtw">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Divisiion</div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="spart">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Sales Office
+                                                                </div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="vkbur">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Sales Group</div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="vkgrp">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">Sales
+                                                                    representative
+                                                                </div>
+                                                                <div class="item-input-wrap">
+                                                                    <input type="text" name="zvpartner"
+                                                                        placeholder="(Optional) Sales representative">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <div class="block-title">Geo Location Settings</div>
+                                                    <li>
+                                                        <div class="block block-strong text-align-center">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="stepper stepper-fill stepper-init"
+                                                                        data-autorepeat="true"
+                                                                        data-autorepeat-dynamic="true">
+                                                                        <div class="stepper-button-minus"></div>
+                                                                        <div class="stepper-input-wrap">
+                                                                            <input type="text" value="200" min="50"
+                                                                                max="1000" step="10" name="gpsradius" />
+                                                                        </div>
+                                                                        <div class="stepper-button-plus"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="item-content item-input">
+                                                            <div class="item-inner">
+                                                                <div class="item-title item-label">GPS Update
+                                                                    Behaviour
+                                                                </div>
+                                                                <div class="item-input-wrap">
+                                                                    <select name="gpsbehave">
+                                                                        <option value="" selected>- please select
+                                                                            from list -</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list no-hairlines md">
+                            <ul>
+                                <li class="align-top">
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Comments</div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Your comemnts go here."
+                                                    class="resizable"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                    <div class="block block-strong">
+                        <p class="row">
+                            <a href="#" class="col button button-raised fill-form-from-data">Test Data</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-2" class="page-content tab">
+                <div class="block">
+                    <div class="block-title">Send Ship-to master data request to SAP.</div>
+                    <div class="block">
+                        <div class="list">
+                            <ul class="emptyFields"></ul>
+                        </div>
+                    </div>
+                    <div class="block block-strong">
+                        <p class="row">
+                            <a href="#" class="col button button-raised send disabled">Send</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

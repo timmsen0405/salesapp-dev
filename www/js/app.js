@@ -1,29 +1,10 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
-}
-
 var $$ = Dom7;
 
 var app = new Framework7({
   root: '#app', // App root element
-
-
-  name: 'Sales App', // App name
+  name: 'Sales App',
+  id: 'com.application.salesapp', // App name
   theme: 'auto', // Automatic theme detection
-  // App root data
-  data() {
-    return {
-      foo: 'bar'
-    };
-  },
-  // App root methods
-  methods: {
-    doSomething() {
-      //...
-    }
-  },
-
-
   // App routes
   routes: routes,
 });
@@ -55,9 +36,8 @@ var userData = [
     vkbur: 'DE33',
     vkgrp: 'D07',
   }];
-////////////////////////////////////////////////////////////////
 
-// Sales related master data /////////////////////////////////////////
+// Sales and material related master data //////////////////////
 var vkorg = [
   { value: '0020', name: 'HD Cement AG' },
   { value: '0081', name: 'HD Sand & Kies GmbH' },
@@ -261,7 +241,7 @@ var expclass_XM = [
   { value: 'XM3', name: 'XM3' },
 ];
 
-var salesCustomizing = [
+var salesCustomizing = [ // will be replaced with backend operations
   { field: 'vkorg', values: vkorg },
   { field: 'vtw', values: vtw },
   { field: 'spart', values: spart },
@@ -275,7 +255,7 @@ var salesCustomizing = [
   { field: 'gpsbehave', values: gpsbehave },
 ]
 
-var materialCustomizing = [
+var materialCustomizing = [ // will be replaced with backend operations
   { field: 'cstrength', values: cstrength },
   { field: 'consistency', values: consistency },
   { field: 'grsize', values: grsize },
@@ -289,13 +269,173 @@ var materialCustomizing = [
   { field: 'expclass_XM', values: expclass_XM },
 ];
 
-//////////////////////////////////////////////////////////
+var testMaterials = [ // will be replaced with backend requests
+  {
+    matNoInt: "116993",
+    matNoExt: "1.6342.101",
+    matArt: "FERT",
+    matName: "C25/30 F4 8mm XC4, XM3 mittlerer Zement",
+    cstrength: "C25/30",
+    consistency: "F4",
+    grsize: "8",
+    expclass: ["XC4", "XM3"],
+    strdev: "CEM II",
+    uom: "M3"
+  },
+  {
+    matNoInt: "116825",
+    matNoExt: "1.5332.100",
+    matArt: "FERT",
+    matName: "C20/25 F3 16mm XC4, XM3, XA1 schneller Zement",
+    cstrength: "C20/25",
+    consistency: "F3",
+    grsize: "16",
+    expclass: ["XC4", "XA1", "XM3"],
+    strdev: "CEM III",
+    uom: "M3"
+  },
+  {
+    matNoInt: "60795171",
+    matNoExt: "",
+    matArt: "DIEN",
+    matName: "Wartezeit",
+    cstrength: "",
+    consistency: "",
+    grsize: "",
+    expclass: "",
+    strdev: "",
+    uom: "M3"
+  },
+  {
+    matNoInt: "60762261",
+    matNoExt: "",
+    matArt: "DIEN",
+    matName: "Belastung Rückbeton",
+    cstrength: "",
+    consistency: "",
+    grsize: "",
+    expclass: "",
+    strdev: "",
+    uom: "M3"
+  },
+];
+
+var testCustomerMasterData = [ // will be replaced with backend requests 
+  {
+    customerID: 10121818,
+    accountGroup: 'DE01',
+    name1: 'Buzz',
+    name2: 'Lightyear',
+    street: 'Hopfengarten',
+    houseno: '1',
+    zipcode: '69124',
+    city: 'Heidelberg',
+    tel: '0123 4567890',
+    mobilephone: '0456 789012',
+    fax: '0123 4567891',
+    email: 'buzz@toy-story.com',
+    cbEpodMail: ['on'],
+    brsch: 'DE07',
+    kukla: 'a3',
+  },
+  {
+    customerID: 10174718,
+    accountGroup: 'DE01',
+    name1: 'The',
+    name2: 'Dude',
+    street: 'Jahnstraße',
+    houseno: '7',
+    zipcode: '69250',
+    city: 'Schönau',
+    tel: '0123 4567890',
+    mobilephone: '0456 789012',
+    fax: '0123 4567891',
+    email: 'thebig@lebowsky.com',
+    cbEpodMail: ['off'],
+    brsch: 'DE07',
+    kukla: 'a3',
+  },
+];
+
+var testShiptoMasterData = [
+  {
+    name1: 'Oststadt Theater',
+    name2: 'Lachen im Quadrat',
+    street: 'N1',
+    houseno: '1',
+    zipcode: '68161',
+    city: 'Mannheim',
+    tel: '0123 4567890',
+    email: 'polier@muster-bau.de',
+    cbEpodMail: 'off',
+    bran1: 'DE04',
+    gpsbehave: '2',
+  },
+  {
+    name1: 'Galeria Kaufhof',
+    name2: '',
+    street: 'Bismarckplatz',
+    houseno: '',
+    zipcode: '69120',
+    city: 'Heidelberg',
+    tel: '0123 4567890',
+    email: 'polier@muster-bau.de',
+    cbEpodMail: 'off',
+    bran1: 'DE04',
+    gpsbehave: '2',
+  },
+]
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
 // SERVICE WORKER RELATED ///////////////////////////////////////////////////////////////
 
-// Notification API////////////////////////////////////////
+// PUSH API/////////////////////////////////////////////////////////////////
+// Register Service WorkerCheck for push service subscription
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+    console.log('Service Worker Registered!', reg);
+
+    reg.pushManager.getSubscription().then(function (sub) {
+      if (sub === null) {
+        // Update UI to ask user to register for Push
+        //subscribeUser(); --> comments because no service to subscribe to yet --> avoid errors
+        console.log('Not yet subscribed to push service!');
+      } else {
+        // We have a subscription, update the database
+        console.log('Subscription object: ', sub);
+      }
+    });
+  })
+    .catch(function (err) {
+      console.log('Service Worker registration failed: ', err);
+    });
+};
+
+// Subscribe to push service
+function subscribeUser() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function (reg) {
+      //const publicKey = new Uint8Array([0x4, 0x37, 0x77, 0xfe, .... ]);
+      reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        // applicationServerKey: publicKey
+      }).then(function (sub) {
+        console.log('Endpoint URL: ', sub.endpoint);
+      }).catch(function (e) {
+        if (Notification.permission === 'denied') {
+          console.warn('Permission for notifications was denied');
+        } else {
+          console.error('Unable to subscribe to push', e);
+        }
+      });
+    })
+  }
+};
+
+
+// Notification Web API////////////////////////////////////////
 if (!checkNotificationCompatibility) {
   alert("Unfortunately your browser does not support notifications.");
 } else {
@@ -319,28 +459,28 @@ function requestNotifyPermit() {
 };
 
 // 3. Step: Display Notifications
-function displayNotification() {
+function displayNotification(title, body, notificationId) {
   if (Notification.permission == 'granted') {
     /* Always check for user's permission */
     navigator.serviceWorker.getRegistration().then(function (reg) {
       var options = {
-        body: 'Here is a notification body!',
+        body: body,
         icon: './assets/icons/512x512.png',
         vibrate: [100, 50, 100],
         data: {
           dateOfArrival: Date.now(),
-          primaryKey: 1
+          primaryKey: notificationId,
         },
         actions: [
           {
-            action: 'explore', title: 'Explore this new world'
+            action: 'explore', title: 'Maybe add some more info here.'
           },
           {
             action: 'close', title: 'Close notification'
           },
         ]
       };
-      reg.showNotification('Hello world!', options);
+      reg.showNotification(title, options);
     });
   } else if (Notification.permission === "blocked") {
     /* the user has previously denied push. Can't reprompt. */
@@ -348,52 +488,7 @@ function displayNotification() {
     /* show a prompt to the user */
     requestNotifyPermit();
   };
-
 };
-////////////////////////////////////////////////////////////////////////////
-
-// PUSH API/////////////////////////////////////////////////////////////////
-// Check for push service subscription
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js').then(function (reg) {
-    console.log('Service Worker Registered!', reg);
-
-    reg.pushManager.getSubscription().then(function (sub) {
-      if (sub === null) {
-        // Update UI to ask user to register for Push
-        console.log('Not subscribed to push service!');
-      } else {
-        // We have a subscription, update the database
-        console.log('Subscription object: ', sub);
-      }
-    });
-  })
-    .catch(function (err) {
-      console.log('Service Worker registration failed: ', err);
-    });
-}
-
-// Subscribe to push service
-function subscribeUser() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(function (reg) {
-
-      reg.pushManager.subscribe({
-        userVisibleOnly: true
-      }).then(function (sub) {
-        console.log('Endpoint URL: ', sub.endpoint);
-      }).catch(function (e) {
-        if (Notification.permission === 'denied') {
-          console.warn('Permission for notifications was denied');
-        } else {
-          console.error('Unable to subscribe to push', e);
-        }
-      });
-    })
-  }
-}
-///////////////////////////////////////////////////////////////////////////
-
 
 ///END Service worker related////////////////////////////////////////////////////////////
 
@@ -401,10 +496,12 @@ function subscribeUser() {
 // SEND FORM DATA ///////////////////////////////////////////////////////////////////
 // Send data to backend
 function sendData(data, url) {
+  url.push(data);
   console.log('SEND DATA:', data);
+  console.log(url)
   // TO DO: Sending to backend
 };
-// Check if all fields are filled
+// Check if all fields are filled and return empty ones
 function checkFields(form) {
   var data = app.form.convertToData(form);
   var objKeys = Object.keys(data);
@@ -468,8 +565,18 @@ function addOptionsToSelect(el, data) {
   };
 };
 
-// Open Login-Screen when opening the app
+// Display button within input field to open search dialog
+function displayInlineSearch() {
+  $$('input.search-button-display').on('focusin', function () {
+    $$(this).parents('div.row').find('a.open-search').removeClass('hidden');
+  });
+  $$('input.search-button-display').on('focusout', function () {
+    $$(this).parents('div.row').find('a.open-search').addClass('hidden');
+  });
+};
+
 /* Login functionality */
+// Open Login-Screen when opening the app
 var loginScreen = app.loginScreen.open('#login-screen');
 $$('#sign-in').on('click', function (e) {
   // for local development & testing pnly - will be replaced with backend operations, presumably WebAuthn
@@ -483,7 +590,9 @@ $$('#sign-in').on('click', function (e) {
     } else {
       app.form.storeFormData('user-data', user);
       $$(document).find('form#login').find('input').val('');
-      $$(document).find('.panel-open').removeClass('disabled');
+      $$(document).find('a#login-open').addClass('no-display');
+      $$(document).find('a#logout').removeClass('disabled');
+      $$(document).find('a#logout').addClass('panel-close login-screen-open');
       console.log('Login successful.');
       app.loginScreen.close();
     }
@@ -504,27 +613,28 @@ function checkPw(pwCred, pwUser) {
 $$(document).on('panel:open', '.panel-right', function (e) {
   $$('a#logout').on('click', function (e) {
     logout();
+    $$(document).find('a#login-open').removeClass('no-display');
+    $$(document).find('a#logout').addClass('disabled');
+    $$(document).find('a#logout').removeClass('panel-close login-screen-open');
   });
 });
 
 function logout() {
   app.form.removeFormData('user-data');
-  $$(document).find('.panel-open').addClass('disabled');
-  console.log('User logged out.');
+  console.log('User successfully logged out.');
 };
 /////////////////////////////////////////////////////////////////////////////////
 
 
 ///// CUSTOM PAGE CODE //////////////////////////////////////////////////////////
 
-// Index (home) page////////////////////////////////////
+// Index (home) page / App start
 addOptionsToSelect('#user-profile', salesCustomizing);
 
 $$('#notify-test').on('click', function (e) {
   console.log('CLICKED: TEST NOTIFICATION')
-  displayNotification();
+  displayNotification('FYI.', 'Just for your information.', 456123);
 });
-///////////////////////////////////////////////
 
 // Custom Code for "user-profile" page
 $$(document).on('popup:open', function (e) {
@@ -535,64 +645,12 @@ $$(document).on('popup:open', function (e) {
   };
 });
 
-
 // Custom Code for Quotation Cockpit
 $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
   // Code when page with data-name="form-quot" attribute loaded and initialized
   console.log('Quotation Cockpit opened.');
 
-  // TESTING & DEVELOPMENT ONLY ///////////
-  var testMaterials = new Array();
-  testMaterials[0] = { // for development testing
-    matNoInt: "116993",
-    matNoExt: "1.6342.101",
-    matArt: "FERT",
-    matName: "C25/30 F4 8mm XC4, XM3 mittlerer Zement",
-    cstrength: "C25/30",
-    consistency: "F4",
-    grsize: "8",
-    expclass: ["XC4", "XM3"],
-    strdev: "CEM II",
-    uom: "M3"
-  };
-  testMaterials[1] = { // for development testing
-    matNoInt: "116825",
-    matNoExt: "1.5332.100",
-    matArt: "FERT",
-    matName: "C20/25 F3 16mm XC4, XM3, XA1 schneller Zement",
-    cstrength: "C20/25",
-    consistency: "F3",
-    grsize: "16",
-    expclass: ["XC4", "XA1", "XM3"],
-    strdev: "CEM III",
-    uom: "M3"
-  };
-  testMaterials[2] = { // for development testing
-    matNoInt: "60795171",
-    matNoExt: "",
-    matArt: "DIEN",
-    matName: "Wartezeit",
-    cstrength: "",
-    consistency: "",
-    grsize: "",
-    expclass: "",
-    strdev: "",
-    uom: "M3"
-  };
-  testMaterials[3] = { // for development testing
-    matNoInt: "60762261",
-    matNoExt: "",
-    matArt: "DIEN",
-    matName: "Belastung Rückbeton",
-    cstrength: "",
-    consistency: "",
-    grsize: "",
-    expclass: "",
-    strdev: "",
-    uom: "M3"
-  };
-
-  /////////////////////////////////////////
+  displayInlineSearch();
   addOptionsToSelect($$(this), salesCustomizing);
   addOptionsToSelect($$(this), materialCustomizing);
 
@@ -602,6 +660,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
   var cart = new Array();
   var popup = app.popup.create();
   var customizeSearch;
+  var targetInput;
   var customizeCart;
 
   // EVENT-HANDLER / LISTENER
@@ -633,9 +692,9 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       var data = app.form.convertToData('#partners-sales');
 
       if (!checkFields('#partners-sales')) {
-        $$(elem).find('a.send').addClass('button-fill').on('click', function (e) {
+        $$(elem).find('a.send').addClass('button-fill').removeClass('disabled').on('click', function (e) {
           var quotData = [data, cart];
-          sendData(quotData);
+          sendData(quotData, quotations);
         });
       };
     };
@@ -650,53 +709,128 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
 
     if (elem.id === "tab-4") {
       $$(elem).find('ul.emptyFields').empty();
-      $$(elem).find('a.send').removeClass('button-fill').off('click')
+      $$(elem).find('a.send').removeClass('button-fill').addClass('disabled').off('click')
     };
   });
 
-  $$('.searchBtn').on('click', function () { // Search Button Functionality
+  $$('.button-search-mat').on('click', function () { // Search Button Functionality
     var formId = $$(this).parents('form').attr('id');
     var formData = app.form.convertToData('#' + formId);
     var searchRes = getMaterial(customizeSearch[0], formData);
     buildSearchRes(searchRes, customizeSearch[1], $$(this));
   });
 
+  $$('.open-search').on('click', function (e) {
+    targetInput = $$(this).parents('.item-input-wrap').find('input').attr('name');
+    console.log('Target-Input', targetInput);
+  });
+
+  $$('.button-search-partner').on('click', function () {
+    var formId = $$(this).parents('form').attr('id');
+    var formData = app.form.convertToData('#' + formId);
+    console.log('Search Criteria:', formData);
+    var searchRes = getPartner(formData);
+    console.log('Search Results:', searchRes);
+
+    var dTbody = $$(this).parents('.page-content').find('tbody.search-results');
+    dTbody.empty();
+
+    for (var i = 0; i < searchRes.length; i++) {
+      var obj = searchRes[i];
+      var objLength = Object.keys(obj).length;
+      var objKeys = Object.keys(obj);
+      var objVals = Object.values(obj);
+
+      var tr = $$(document.createElement('tr')).attr('id', obj.customerID);
+      tr.on('dbclick', function (e) {
+        targetInput.val(this.id);
+      });
+      dTbody.append(tr);
+
+      for (var j = 0; j < objLength; j++) {
+        for (var k = 0; k < objLength; k++) {
+          if (objKeys[j] === customizeSearch[k]) {
+            var td = $$(document.createElement('td')).addClass('label-cell').html(objVals[j]);
+            td.addClass(objKeys[j]);
+            tr.append(td);
+          };
+        };
+      };
+    };
+  });
+
+  function getPartner(searchCrit) {
+    var searchRes = testCustomerMasterData;
+
+    return searchRes.filter(compare)
+
+    function compare(el) {
+      var obj = searchCrit;
+      var objKeys = Object.keys(obj);
+      var objVals = Object.values(obj);
+
+      var match = true;
+      for (var i = 0; i < objKeys.length; i++) {
+        var key = objKeys[i];
+        if (objVals[i] != "") {
+          if (el.hasOwnProperty(key)) {
+            if (!el[key].toLowerCase().includes(objVals[i].toLowerCase())) {
+              match = false;
+            }
+          }
+        } else {
+          continue;
+        }
+      }
+      return match;
+    };
+  };
+
   app.on('popupOpen', function (popup) { // Actions on popup open
     var elem = popup.el;
-    if ($$(elem).hasClass('searchMask')) {
+
+    if ($$(elem).hasClass('search-mask-mat')) {
       customizeSearch = customizeSearchMask(elem.id);
       var matArt = customizeSearch[0];
       var showProp = customizeSearch[1];
-      console.log('SearchMask #' + elem.id, 'opened. CUSTOMIZING ', customizeSearch);
+      console.log('Search Mask #' + elem.id, 'opened. CUSTOMIZING ', customizeSearch);
 
-      if ($$(elem).hasClass('autoSearch')) {
+      if ($$(elem).hasClass('auto-search')) {
         var searchRes = getMaterial(customizeSearch[0], [{}]);
         buildSearchRes(searchRes, showProp, elem);
       };
+    } else if ($$(elem).hasClass('search-mask-partner')) {
+      customizeSearch = customizeSearchMask(elem.id);
+      var showProp = customizeSearch;
+      console.log('Search Mask #' + elem.id, 'opened. CUSTOMIZING ', customizeSearch);
     };
   });
 
   app.on('popupClose', function (popup) { // Actions on popup close
     var elem = popup.el;
-    if ($$(elem).hasClass('searchMask')) {
+    if ($$(elem).hasClass('search-mask-mat')) {
       $$(elem).find('tbody.search-results').empty();
       customizeCart = customizeCartBuild($$('div.tab-active').find('.data-table').attr('id'));
       buildCart($$('div.tab-active').find('.data-table').attr('id'), customizeCart);
       $$(elem).find('form.search-crit').find('input, select').val('false');
     };
+    if ($$(elem).hasClass('search-mask-partner')) {
+      $$(elem).find('tbody.search-results').empty();
+      $$(elem).find('form.search-crit').find('input, select').val('false');
+    };
   });
 
   function customizeSearchMask(id) { // Customizing for different search masks
-    var matArt;
-    var showProp = new Array();
+
     switch (id) {
       case 'prodSearch': // Product Search Customizing
-        matArt = "FERT";
-        showProp = ['cstrength', 'consistency', 'grsize', 'expclass', 'strdev'];
-        break;
+        var matArt = "FERT";
+        var showProp = ['cstrength', 'consistency', 'grsize', 'expclass', 'strdev'];
+        return [matArt, showProp];
+
       case 'serviceSearch': // Service Search Customizing        
-        matArt = "DIEN";
-        showProp = ['matName', 'uom'];
+        var matArt = "DIEN";
+        var showProp = ['matName', 'uom'];
 
         var searchbar = app.searchbar.create({ // create searchbar
           el: '.searchbar',
@@ -709,11 +843,17 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
             }
           }
         });
-        break;
+        return [matArt, showProp];
+
+      case 'partnerSearch':
+        var showProp = ['name1', 'name2', 'zipcode', 'city', 'street', 'houseno']
+        return showProp;
+
       default:
-        startProp = 0;
+        showProp = 0;
+        return showProp;
     };
-    return [matArt, showProp];
+
   };
 
   function buildSearchRes(searchRes, showProp, el) { // Build up data table with search results
@@ -721,7 +861,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
     var dTbody;
     if ($$(el).hasClass('popup')) { // search result build-up on pop-up open
       dTbody = $$(el).find('tbody.search-results')
-    } else if ($$(el).hasClass('searchBtn')) { // search result build-up by manual trigger
+    } else if ($$(el).hasClass('button-search-mat')) { // search result build-up by manual trigger
       dTbody = $$(el).parents('.page-content').find('tbody.search-results');
     };
     dTbody.empty();
@@ -894,13 +1034,14 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
 
     var expclass = new Array();
     for (var i = 0; i < objKeys.length; i++) { //add all exposure classes into one array
-      if (objKeys[i].includes('expClass_')) {
+      if (objKeys[i].includes('expclass_')) {
         var key = objKeys[i];
-        var val = objVals[i]
-        if (objVals[i] != "false") {
+        var val = objVals[i];
+        if (val != "") {
           expclass.push(val);
         };
         delete searchCrit[key];
+        console.log('delete');
       }
     }
     searchCrit["expclass"] = expclass;
@@ -918,7 +1059,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       var match = true;
       for (var i = 0; i < objKeys.length; i++) {
         var key = objKeys[i];
-        if (objVals[i] != "false" && objVals[i] != "") {
+        if (objVals[i] != "") {
           if (el.hasOwnProperty(key)) {
             if (Array.isArray(objVals[i])) {
               var arr = objVals[i];
@@ -940,14 +1081,12 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       return match;
     };
   };
-
-
 });
 
 // Custom Code for Customer Cockpit
 $$(document).on('page:beforein', '.page[data-name="form-customer-cockpit"]', function (e) {
   // For Development & testing only ////////////////////////////////
-  var customerData = {
+  var testCustomer = {
     name1: 'Franz',
     name2: 'Bauer',
     street: 'R4',
@@ -963,7 +1102,7 @@ $$(document).on('page:beforein', '.page[data-name="form-customer-cockpit"]', fun
     kukla: 'a1',
   };
   $$('.fill-form-from-data').on('click', function () {
-    app.form.fillFromData('#customer-data', customerData);
+    app.form.fillFromData('#customer-data', testCustomer);
   });
   /////////////////////////////////////////////////////////
   addOptionsToSelect($$(this), salesCustomizing);
@@ -972,13 +1111,13 @@ $$(document).on('page:beforein', '.page[data-name="form-customer-cockpit"]', fun
   autoFill('#customer-data');
 
   app.on('tabShow', function (tabEl) { // Action on swiping tabs
-    //Code for "send tab"
+    // Code for "send tab"
     if (tabEl.id === "tab-2") {
       var data = app.form.convertToData('#customer-data');
 
       if (!checkFields('#customer-data')) {
-        $$(tabEl).find('a.send').addClass('button-fill').on('click', function (e) {
-          sendData(data);
+        $$(tabEl).find('a.send').addClass('button-fill').removeClass('disabled').on('click', function (e) {
+          sendData(data, testCustomerMasterData);
         });
       };
     };
@@ -987,7 +1126,7 @@ $$(document).on('page:beforein', '.page[data-name="form-customer-cockpit"]', fun
   app.on('tabHide', function (tabEl) { // Action on swiping tabs
     if (tabEl.id === "tab-2") {
       $$(tabEl).find('ul.emptyFields').empty();
-      $$(tabEl).find('a.send').removeClass('button-fill').off('click')
+      $$(tabEl).find('a.send').removeClass('button-fill').addClass('disabled').off('click')
     };
   });
 });
@@ -1024,8 +1163,8 @@ $$(document).on('page:beforein', '.page[data-name="form-ship-to-cockpit"]', func
       var data = app.form.convertToData('#ship-to-data');
 
       if (!checkFields('#ship-to-data')) {
-        $$(tabEl).find('a.send').addClass('button-fill').on('click', function (e) {
-          sendData(data);
+        $$(tabEl).find('a.send').addClass('button-fill').removeClass('disabled').on('click', function (e) {
+          sendData(data, testShiptoMasterData);
         });
       };
     };
@@ -1034,7 +1173,7 @@ $$(document).on('page:beforein', '.page[data-name="form-ship-to-cockpit"]', func
   app.on('tabHide', function (tabEl) { // Action on swiping tabs
     if (tabEl.id === "tab-2") {
       $$(tabEl).find('ul.emptyFields').empty();
-      $$(tabEl).find('a.send').removeClass('button-fill').off('click')
+      $$(tabEl).find('a.send').removeClass('button-fill').addClass('disabled').off('click')
     };
   });
 });

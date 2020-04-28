@@ -1,10 +1,11 @@
 {
+    "prefer_related_applications": true,
     "name": "Sales App",
     "short_name": "salesApp",
     "theme_color": "#008238",
     "background_color": "#2196f3",
     "display": "fullscreen",
-    "Scope": "/",
+    "scope": "/",
     "start_url": "index.html",
     "icons": [
         {

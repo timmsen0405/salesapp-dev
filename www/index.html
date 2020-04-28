@@ -35,10 +35,9 @@
   <link rel="manifest" href="salesapp.webmanifest">
 
   <!-- Prefetch the following resources to have all functionalities available offline-->
-  <link rel="prefetch" href="pages/quotation-cp.html">
+  <!-- <link rel="prefetch" href="pages/quotation-cp.html">
   <link rel="prefetch" href="pages/customer-cp.html">
-  <link rel="prefetch" href="pages/shipto-cp.html">
-  <link rel="prefetch" href="pages/404.html">
+  <link rel="prefetch" href="pages/shipto-cp.html"> -->
 
 </head>
 
@@ -54,14 +53,14 @@
           <div class="navbar-bg"></div>
           <div class="navbar-inner">
             <div class="left">
-              <a href="#" class="link icon-only panel-open disabled" data-panel="left">
+              <a href="#" class="link icon-only panel-open" data-panel="left">
                 <i class="icon f7-icons if-not-md">menu</i>
                 <i class="icon material-icons if-md">menu</i>
               </a>
             </div>
             <div class="title sliding">Sales App</div>
             <div class="right">
-              <a href="#" class="link icon-only panel-open disabled" data-panel="right">
+              <a href="#" class="link icon-only panel-open " data-panel="right">
                 <i class="icon f7-icons if-not-md">gear_alt</i>
                 <i class="icon material-icons if-md">settings</i>
               </a>
@@ -87,9 +86,8 @@
             <p>Use left and right panels to navigate.</p>
           </div>
           <div class="block block-strong">
-            <div class="row">
-              <!--Some content goes here in the future-->
-            </div>
+            <a href="#" class="button link login-screen-open" data-login-screen="#login-screen" id="login-open">
+              <i class="icon f7-icons">person_alt_circle_fill</i> Login</a>
           </div>
         </div>
       </div>
@@ -118,44 +116,49 @@
 
       <!-- Login Screen -->
       <div class="login-screen" id="login-screen">
-        <!--  <div class="view"> -->
-        <div class="page">
-          <div class="page-content login-screen-content">
-            <div class="login-screen-title"><img src="assets/icons/144x144.png"></div>
-            <div class="login-screen-title">Sales App</div>
-            <form id="login">
-              <div class="list">
-                <ul>
-                  <li class="item-content item-input">
-                    <div class="item-inner">
-                      <div class="item-title item-label">Username</div>
-                      <div class="item-input-wrap">
-                        <input type="text" name="username" placeholder="Your username">
+        <div class="view">
+          <div class="page">
+            <div class="page-content login-screen-content">
+              <div class="login-screen-title"><img src="assets/icons/144x144.png"></div>
+              <div class="login-screen-title">Sales App</div>
+              <form id="login">
+                <div class="list">
+                  <ul>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Username</div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="username" placeholder="Your username">
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <li class="item-content item-input">
-                    <div class="item-inner">
-                      <div class="item-title item-label">Password</div>
-                      <div class="item-input-wrap">
-                        <input type="password" name="password" placeholder="Your password">
+                    </li>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Password</div>
+                        <div class="item-input-wrap">
+                          <input type="password" name="password" placeholder="Your password">
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="list">
-                <ul>
-                  <li>
-                    <a href="#" class="item-link list-button login-button" id="sign-in">Sign In</a>
-                  </li>
-                </ul>
-                <div class="block-footer">Forgot Username or password?</div>
-              </div>
-            </form>
+                    </li>
+                  </ul>
+                </div>
+                <div class="list">
+                  <ul>
+                    <li>
+                      <a href="#" class="item-link list-button login-button" id="sign-in">Sign In</a>
+                    </li>
+                  </ul>
+                  <div class="block-footer">
+                    <p>Forgot Username or password?</p>
+                    <p>
+                      <a class="login-screen-close" href="#" data-login-screen="#login-screen">Close Login screen</a>
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <!-- </div> -->
       </div>
 
       <!--User Profile-->
@@ -327,8 +330,7 @@
               <div class="list links-list">
                 <ul>
                   <li><a class="panel-close popup-open" href="#" data-popup="#user-profile">User profile</a></li>
-                  <li><a class="panel-close login-screen-open" href="#" data-login-screen="#login-screen"
-                      id="logout">Logout</a>
+                  <li><a class="disabled" href="#" data-login-screen="#login-screen" id="logout">Logout</a>
                   </li>
                 </ul>
               </div>

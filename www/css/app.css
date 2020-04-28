@@ -53,3 +53,11 @@
 }
 
 /* Your app custom styles here */
+
+.no-display {
+  display: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
