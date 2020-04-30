@@ -7,6 +7,22 @@ var app = new Framework7({
   theme: 'auto', // Automatic theme detection
   // App routes
   routes: routes,
+  serviceWorker: {
+    path: './service-worker.js',
+  },
+
+  methods: {
+    registerSW() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js', { scope: './' }).then(function (reg) {
+          console.log('Service Worker successfully registered!', reg);
+        }).catch(function (err) {
+          console.log('Service Worker registration failed: ', err);
+        });
+      };
+    }
+  }
+
 });
 
 // TEST DATA //////////////////////////////////////////////////////////////////////////////
@@ -23,6 +39,7 @@ var userData = [
     spart: '30',
     vkbur: 'DE31',
     vkgrp: 'D01',
+    loggedin: false,
   },
   {
     username: 'ADENT',
@@ -35,6 +52,7 @@ var userData = [
     spart: '30',
     vkbur: 'DE33',
     vkgrp: 'D07',
+    loggedin: false,
   }];
 
 // Sales and material related master data //////////////////////
@@ -320,10 +338,10 @@ var testMaterials = [ // will be replaced with backend requests
   },
 ];
 
-var testCustomerMasterData = [ // will be replaced with backend requests 
+var testPartnerMasterData = [ // will be replaced with backend requests 
   {
-    customerID: 10121818,
-    accountGroup: 'DE01',
+    partnerID: 10121818,
+    accountgroup: 'DE01',
     name1: 'Buzz',
     name2: 'Lightyear',
     street: 'Hopfengarten',
@@ -339,8 +357,8 @@ var testCustomerMasterData = [ // will be replaced with backend requests
     kukla: 'a3',
   },
   {
-    customerID: 10174718,
-    accountGroup: 'DE01',
+    partnerID: 10174718,
+    accountgroup: 'DE01',
     name1: 'The',
     name2: 'Dude',
     street: 'Jahnstraße',
@@ -355,10 +373,9 @@ var testCustomerMasterData = [ // will be replaced with backend requests
     brsch: 'DE07',
     kukla: 'a3',
   },
-];
-
-var testShiptoMasterData = [
   {
+    partnerID: 110000815,
+    accountgroup: 'DES2',
     name1: 'Oststadt Theater',
     name2: 'Lachen im Quadrat',
     street: 'N1',
@@ -372,6 +389,8 @@ var testShiptoMasterData = [
     gpsbehave: '2',
   },
   {
+    partnerID: 110004711,
+    accountgroup: 'DES2',
     name1: 'Galeria Kaufhof',
     name2: '',
     street: 'Bismarckplatz',
@@ -381,115 +400,185 @@ var testShiptoMasterData = [
     tel: '0123 4567890',
     email: 'polier@muster-bau.de',
     cbEpodMail: 'off',
-    bran1: 'DE04',
+    bran1: 'DE07',
     gpsbehave: '2',
   },
-]
+];
+
+var quotations = new Array();
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+//Detect whether device is running ios
+var isiOS = false;
+
+if (/iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+  isiOS = true;
+}
+
+console.log('OS is iOs:', isiOS);
 
 // SERVICE WORKER RELATED ///////////////////////////////////////////////////////////////
 
-// PUSH API/////////////////////////////////////////////////////////////////
-// Register Service WorkerCheck for push service subscription
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js').then(function (reg) {
-    console.log('Service Worker Registered!', reg);
+// registerSW
+app.methods.registerSW();
 
-    reg.pushManager.getSubscription().then(function (sub) {
-      if (sub === null) {
-        // Update UI to ask user to register for Push
-        //subscribeUser(); --> comments because no service to subscribe to yet --> avoid errors
-        console.log('Not yet subscribed to push service!');
-      } else {
-        // We have a subscription, update the database
-        console.log('Subscription object: ', sub);
+// ADDING APP TO HOME SCREEN (A2HS) via toast //////////////////////////
+// Create toast with callback of install prompt on close
+
+var toastInstallMd;
+
+if (!isiOS) { // show Banner with Installation functionality only on non iOS devices.
+  toastInstallMd = app.toast.create({
+    text: 'You can install this app!',
+    closeButton: true,
+    closeButtonText: 'Install',
+    closeTimeout: 20000,
+    on: {
+      closeButtonClick: (e) => {
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice
+          .then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+            } else {
+              console.log('User dismissed the A2HS prompt');
+            }
+            deferredPrompt = null;
+          });
       }
-    });
-  })
-    .catch(function (err) {
-      console.log('Service Worker registration failed: ', err);
-    });
-};
-
-// Subscribe to push service
-function subscribeUser() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(function (reg) {
-      //const publicKey = new Uint8Array([0x4, 0x37, 0x77, 0xfe, .... ]);
-      reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        // applicationServerKey: publicKey
-      }).then(function (sub) {
-        console.log('Endpoint URL: ', sub.endpoint);
-      }).catch(function (e) {
-        if (Notification.permission === 'denied') {
-          console.warn('Permission for notifications was denied');
-        } else {
-          console.error('Unable to subscribe to push', e);
-        }
-      });
-    })
-  }
-};
-
-
-// Notification Web API////////////////////////////////////////
-if (!checkNotificationCompatibility) {
-  alert("Unfortunately your browser does not support notifications.");
+    }
+  });
 } else {
-  requestNotifyPermit();
-};
-
-// 1. Step: Check Notification API compatibility
-function checkNotificationCompatibility() {
-  if (!('Notification' in window && navigator.serviceWorker)) {
-    return false;
-  } else {
-    return true;
-  }
-};
-
-// 2. Step: Request permission for notifiying user
-function requestNotifyPermit() {
-  Notification.requestPermission(function (status) {
-    console.log('Notification permission status:', status);
+  toastInstallMd = app.toast.create({
+    text: 'You can install this app via share button!',
+    closeButton: true,
+    closeButtonText: 'Close',
+    closeTimeout: 20000,
   });
 };
 
-// 3. Step: Display Notifications
-function displayNotification(title, body, notificationId) {
-  if (Notification.permission == 'granted') {
-    /* Always check for user's permission */
-    navigator.serviceWorker.getRegistration().then(function (reg) {
-      var options = {
-        body: body,
-        icon: './assets/icons/512x512.png',
-        vibrate: [100, 50, 100],
-        data: {
-          dateOfArrival: Date.now(),
-          primaryKey: notificationId,
-        },
-        actions: [
-          {
-            action: 'explore', title: 'Maybe add some more info here.'
-          },
-          {
-            action: 'close', title: 'Close notification'
-          },
-        ]
-      };
-      reg.showNotification(title, options);
-    });
-  } else if (Notification.permission === "blocked") {
-    /* the user has previously denied push. Can't reprompt. */
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  console.log('Deferred Prompt:', deferredPrompt);
+});
+
+// To track how the PWA was launched
+window.addEventListener('load', () => {
+  if (navigator.standalone) {
+    console.log('Launched: Installed (iOS)');
+  } else if (matchMedia('(display-mode: standalone)').matches) {
+    console.log('Launched: Installed');
   } else {
-    /* show a prompt to the user */
+    console.log('Launched: Browser Tab');
+    setTimeout(function () { toastInstallMd.open(); }, 30000);
+  }
+});
+
+if (!isiOS) {
+  // Push API/////////////////////////////////////////////////////////////////
+  // Check for registered Service Workerand push service subscription prompt
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function (reg) {
+      reg.pushManager.getSubscription().then(function (sub) {
+        if (sub === null) {
+          // Update UI to ask user to register for Push
+          //subscribeUser(); --> comments because no service to subscribe to yet --> avoid errors
+          console.log('Not subscribed to push service!');
+        } else {
+          // We have a subscription, update the database
+          console.log('Subscription object: ', sub);
+        }
+      });
+    })
+      .catch(function (err) {
+        console.log('No Service Worker registed:', err);
+      });
+  };
+
+  // Subscribe to push service
+  function subscribeUser() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function (reg) {
+        //const publicKey = new Uint8Array([0x4, 0x37, 0x77, 0xfe, .... ]);
+        reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          // applicationServerKey: publicKey
+        }).then(function (sub) {
+          console.log('Endpoint URL: ', sub.endpoint);
+        }).catch(function (e) {
+          if (Notification.permission === 'denied') {
+            console.warn('Permission for notifications was denied');
+          } else {
+            console.error('Unable to subscribe to push', e);
+          }
+        });
+      })
+    }
+  };
+
+  // Notification Web API////////////////////////////////////////
+  if (!checkNotificationCompatibility) {
+    alert("Unfortunately your browser does not support notifications.");
+  } else {
     requestNotifyPermit();
   };
-};
 
+  // 1. Step: Check Notification API compatibility
+  function checkNotificationCompatibility() {
+    if (!('Notification' in window && navigator.serviceWorker)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  // 2. Step: Request permission for notifiying user
+  function requestNotifyPermit() {
+    Notification.requestPermission(function (status) {
+      console.log('Notification permission status:', status);
+    });
+  };
+
+  // 3. Step: Display Notifications
+  function displayNotification(title, body, notificationId) {
+    if (Notification.permission == 'granted') {
+      /// Always check for user's permission
+      navigator.serviceWorker.getRegistration().then(function (reg) {
+        var options = {
+          body: body,
+          icon: './assets/icons/512x512.png',
+          vibrate: [100, 50, 100],
+          data: {
+            dateOfArrival: Date.now(),
+            primaryKey: notificationId,
+          },
+          actions: [
+            {
+              action: 'explore', title: 'Maybe add some more info here.'
+            },
+            {
+              action: 'close', title: 'Close notification'
+            },
+          ]
+        };
+        reg.showNotification(title, options);
+      });
+    } else if (Notification.permission === "blocked") {
+      // the user has previously denied push. Can't reprompt.
+    } else {
+      // show a prompt to the user
+      requestNotifyPermit();
+    };
+  };
+};
 ///END Service worker related////////////////////////////////////////////////////////////
 
 
@@ -497,8 +586,9 @@ function displayNotification(title, body, notificationId) {
 // Send data to backend
 function sendData(data, url) {
   url.push(data);
-  console.log('SEND DATA:', data);
-  console.log(url)
+  toastDataSend.open();
+  app.views.main.router.back('/'),
+    console.log('SEND DATA:', data);
   // TO DO: Sending to backend
 };
 // Check if all fields are filled and return empty ones
@@ -519,6 +609,15 @@ function checkFields(form) {
   return emptyFields;
   ;
 };
+
+// Create toast with icon
+var toastDataSend = app.toast.create({
+  icon: app.theme === 'ios' ? '<i class="f7-icons">checkmark</i>' : '<i class="material-icons">checkmark</i>',
+  text: 'Success!',
+  position: 'center',
+  closeTimeout: 2000,
+});
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -575,9 +674,10 @@ function displayInlineSearch() {
   });
 };
 
-/* Login functionality */
+// Login functionality/////////////////////////////////////// 
 // Open Login-Screen when opening the app
 var loginScreen = app.loginScreen.open('#login-screen');
+
 $$('#sign-in').on('click', function (e) {
   // for local development & testing pnly - will be replaced with backend operations, presumably WebAuthn
   var cred = app.form.convertToData('#login');
@@ -595,9 +695,10 @@ $$('#sign-in').on('click', function (e) {
       $$(document).find('a#logout').addClass('panel-close login-screen-open');
       console.log('Login successful.');
       app.loginScreen.close();
-    }
-  }
+    };
+  };
 });
+
 
 function findUser(username) {
   var found = userData.find(x => x.username === username) || false;
@@ -633,7 +734,11 @@ addOptionsToSelect('#user-profile', salesCustomizing);
 
 $$('#notify-test').on('click', function (e) {
   console.log('CLICKED: TEST NOTIFICATION')
-  displayNotification('FYI.', 'Just for your information.', 456123);
+  if (!isiOS) {
+    displayNotification('FYI.', 'Just for your information.', 456123);
+  } else {
+    window.alert('Sorry, your browser does not support Notifications.');
+  }
 });
 
 // Custom Code for "user-profile" page
@@ -658,10 +763,9 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
   autoFill('#partners-sales');
 
   var cart = new Array();
-  var popup = app.popup.create();
   var customizeSearch;
-  var targetInput;
   var customizeCart;
+  var targetInput;
 
   // EVENT-HANDLER / LISTENER
   $$('.delPos').on('click', function (e) {//Delete Button functionality
@@ -713,22 +817,34 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
     };
   });
 
-  $$('.button-search-mat').on('click', function () { // Search Button Functionality
+  $$('.button-search-mat').on('click', function () { // Material Search Button Functionality
     var formId = $$(this).parents('form').attr('id');
     var formData = app.form.convertToData('#' + formId);
     var searchRes = getMaterial(customizeSearch[0], formData);
     buildSearchRes(searchRes, customizeSearch[1], $$(this));
   });
 
-  $$('.open-search').on('click', function (e) {
-    targetInput = $$(this).parents('.item-input-wrap').find('input').attr('name');
-    console.log('Target-Input', targetInput);
+  $$('.open-search').on('click', function (e) { // open search mask from input
+    targetInput = $$(this).parents('.item-input-wrap').find('input');
+    console.log('Target-Input', targetInput.attr('name'));
   });
 
-  $$('.button-search-partner').on('click', function () {
+  $$('.button-search-partner').on('click', function () { // Partner Search Button Functionality
+
     var formId = $$(this).parents('form').attr('id');
     var formData = app.form.convertToData('#' + formId);
-    console.log('Search Criteria:', formData);
+    console.log('Search Criteria Before:', formData);
+    switch (targetInput.attr('name')) {
+      case 'soldto':
+        formData.accountgroup = 'DE01';
+        break;
+      case 'shipto':
+        formData.accountgroup = 'DES2';
+        break;
+      default:
+        break;
+    };
+    console.log('Search Criteria After:', formData);
     var searchRes = getPartner(formData);
     console.log('Search Results:', searchRes);
 
@@ -741,9 +857,17 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       var objKeys = Object.keys(obj);
       var objVals = Object.values(obj);
 
-      var tr = $$(document.createElement('tr')).attr('id', obj.customerID);
-      tr.on('dbclick', function (e) {
+      var tr = $$(document.createElement('tr')).attr('id', obj.partnerID);
+      tr.on('dblclick', function (e) {
         targetInput.val(this.id);
+        // Create toast with icon
+        var toastTakeOver = app.toast.create({
+          icon: app.theme === 'ios' ? '<i class="f7-icons">checkmark</i>' : '<i class="material-icons">checkmark</i>',
+          text: 'Copied successfully',
+          position: 'center',
+          closeTimeout: 2000,
+        });
+        toastTakeOver.open();
       });
       dTbody.append(tr);
 
@@ -759,8 +883,9 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
     };
   });
 
+
   function getPartner(searchCrit) {
-    var searchRes = testCustomerMasterData;
+    var searchRes = testPartnerMasterData;
 
     return searchRes.filter(compare)
 
@@ -812,11 +937,11 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       $$(elem).find('tbody.search-results').empty();
       customizeCart = customizeCartBuild($$('div.tab-active').find('.data-table').attr('id'));
       buildCart($$('div.tab-active').find('.data-table').attr('id'), customizeCart);
-      $$(elem).find('form.search-crit').find('input, select').val('false');
+      $$(elem).find('form.search-crit').find('input, select').val('');
     };
     if ($$(elem).hasClass('search-mask-partner')) {
       $$(elem).find('tbody.search-results').empty();
-      $$(elem).find('form.search-crit').find('input, select').val('false');
+      $$(elem).find('form.search-crit').find('input, select').val('');
     };
   });
 
@@ -1041,7 +1166,6 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
           expclass.push(val);
         };
         delete searchCrit[key];
-        console.log('delete');
       }
     }
     searchCrit["expclass"] = expclass;
@@ -1117,7 +1241,8 @@ $$(document).on('page:beforein', '.page[data-name="form-customer-cockpit"]', fun
 
       if (!checkFields('#customer-data')) {
         $$(tabEl).find('a.send').addClass('button-fill').removeClass('disabled').on('click', function (e) {
-          sendData(data, testCustomerMasterData);
+          data.accountgroup = 'DE01';
+          sendData(data, testPartnerMasterData);
         });
       };
     };
@@ -1164,7 +1289,8 @@ $$(document).on('page:beforein', '.page[data-name="form-ship-to-cockpit"]', func
 
       if (!checkFields('#ship-to-data')) {
         $$(tabEl).find('a.send').addClass('button-fill').removeClass('disabled').on('click', function (e) {
-          sendData(data, testShiptoMasterData);
+          data.accountgroup = 'DES2';
+          sendData(data, testPartnerMasterData);
         });
       };
     };

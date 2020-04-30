@@ -1,7 +1,7 @@
 // Names of the two caches used in this version of the service worker.
 // Change to v2, etc. when you update any of the local resources, which will
 // in turn trigger the install event again.
-const PRECACHE = 'precache-v5';
+const PRECACHE = 'precache-v6';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
@@ -9,31 +9,36 @@ const PRECACHE_URLS = [
     'index.html',
     './', // Alias for index.html
     'pages/404.html',
-    'pages/customer-cp.html',
-    'pages/shipto-cp.html',
-    'pages/quotation-cp.html',
-    'assets/icons/128x128.png',
-    'assets/icons/144x144.png',
-    'assets/icons/192x192.png',
-    'assets/icons/256x256.png',
-    'assets/icons/512x512.png',
-    'assets/icons/apple-touch-icon.png',
-    'assets/icons/favicon.png',
-    'fonts/MaterialIcons-Regular.woff2',
-    'css/app.css',
-    'css/icons.css',
-    'js/app.js',
-    'js/routes.js',
-    'framework7/js/framework7.bundle.min.js',
-    'framework7/css/framework7.bundle.min.css',
-    'fonts/Framework7Icons-Regular.eot',
-    'fonts/Framework7Icons-Regular.ttf',
-    'fonts/Framework7Icons-Regular.woff2',
-    'fonts/MaterialIcons-Regular.eot',
-    'fonts/MaterialIcons-Regular.ttf',
-    'fonts/MaterialIcons-Regular.woff',
-    'salesapp.webmanifest',
+    './pages/customer-cp.html',
+    './pages/shipto-cp.html',
+    './pages/quotation-cp.html',
+    './assets/icons/128x128.png',
+    './assets/icons/144x144.png',
+    './assets/icons/192x192.png',
+    './assets/icons/256x256.png',
+    './assets/icons/512x512.png',
+    './assets/icons/apple-touch-icon.png',
+    './assets/icons/favicon.png',
+    './fonts/MaterialIcons-Regular.woff2',
+    './css/app.css',
+    './css/icons.css',
+    './js/app.js',
+    './js/routes.js',
+    './framework7/js/framework7.bundle.min.js',
+    './framework7/css/framework7.bundle.min.css',
+    './fonts/Framework7Icons-Regular.eot',
+    './fonts/Framework7Icons-Regular.ttf',
+    './fonts/Framework7Icons-Regular.woff2',
+    './fonts/MaterialIcons-Regular.eot',
+    './fonts/MaterialIcons-Regular.ttf',
+    './fonts/MaterialIcons-Regular.woff',
 ];
+
+
+//service worker fetch necessary to make app installable
+fetch('/').then(() => {
+    console.log('service worker fetched.');
+});
 
 // The install handler takes care of precaching the resources we always need.
 self.addEventListener('install', event => {
@@ -57,7 +62,6 @@ self.addEventListener('activate', event => {
         }).then(() => self.clients.claim())
     );
 });
-
 // The fetch handler serves responses for same-origin resources from a cache.
 // If no response is found, it populates the runtime cache with the response
 // from the network before returning it to the page.
@@ -133,3 +137,4 @@ self.addEventListener('push', function (e) {
         self.registration.showNotification('Push Notification', options)
     );
 });
+

@@ -13,7 +13,8 @@
       * Enable inline JS: add 'unsafe-inline' to default-src
   -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    content="default-src  'self' 'unsafe-inline' 'unsafe-eval' data: gap: https://ssl.gstatic.com content:">
+
   <meta name="viewport"
     content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 
@@ -33,11 +34,6 @@
   <link rel="stylesheet" href="css/app.css">
 
   <link rel="manifest" href="salesapp.webmanifest">
-
-  <!-- Prefetch the following resources to have all functionalities available offline-->
-  <!-- <link rel="prefetch" href="pages/quotation-cp.html">
-  <link rel="prefetch" href="pages/customer-cp.html">
-  <link rel="prefetch" href="pages/shipto-cp.html"> -->
 
 </head>
 
@@ -92,203 +88,203 @@
         </div>
       </div>
 
-      <!-- Popup: Imprint -->
-      <div class="popup" id="imprint">
-        <div class="view">
-          <div class="page">
-            <div class="navbar">
-              <div class="navbar-bg"></div>
-              <div class="navbar-inner">
-                <div class="title">Imprint</div>
-                <div class="right">
-                  <a href="#" class="link popup-close">Close</a>
-                </div>
-              </div>
-            </div>
-            <div class="page-content">
-              <div class="block">
-                <p>Imprint content goes here.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <!-- Login Screen -->
-      <div class="login-screen" id="login-screen">
-        <div class="view">
-          <div class="page">
-            <div class="page-content login-screen-content">
-              <div class="login-screen-title"><img src="assets/icons/144x144.png"></div>
-              <div class="login-screen-title">Sales App</div>
-              <form id="login">
-                <div class="list">
-                  <ul>
-                    <li class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Username</div>
-                        <div class="item-input-wrap">
-                          <input type="text" name="username" placeholder="Your username">
-                        </div>
-                      </div>
-                    </li>
-                    <li class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Password</div>
-                        <div class="item-input-wrap">
-                          <input type="password" name="password" placeholder="Your password">
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="list">
-                  <ul>
-                    <li>
-                      <a href="#" class="item-link list-button login-button" id="sign-in">Sign In</a>
-                    </li>
-                  </ul>
-                  <div class="block-footer">
-                    <p>Forgot Username or password?</p>
-                    <p>
-                      <a class="login-screen-close" href="#" data-login-screen="#login-screen">Close Login screen</a>
-                    </p>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!--User Profile-->
-      <div class="popup" id='user-profile'>
+    <!-- Popup: Imprint -->
+    <div class="popup" id="imprint">
+      <div class="view">
         <div class="page">
-          <div class="view">
-            <div class="navbar">
-              <div class="navbar-bg"></div>
-              <div class="navbar-inner sliding">
-                <div class="left">
-                  <a href="#" class="link popup-close">
-                    <i class="icon icon-back"></i>
-                    <span class="if-not-md">Back</span>
-                  </a>
-                </div>
-                <div class="title">User Profile</div>
-                <div class="right">
-                  <a class="link tg-edit">Edit</a>
-                </div>
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Imprint</div>
+              <div class="right">
+                <a href="#" class="link popup-close">Close</a>
               </div>
             </div>
-            <div class="page-content">
-              <div class="block-title">Your User data and preferences</div>
-              <form class="list form-store-data" id="user-data">
-                <ul>
-                  <li>
-                    <div class="row">
-                      <div class="col">
-                        <div class="item-content item-input">
-                          <div class="item-inner">
-                            <div class="item-title item-label">Surname</div>
-                            <div class="item-input-wrap">
-                              <input type="text" name="surname" placeholder="Your surname">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="item-content item-input">
-                          <div class="item-inner">
-                            <div class="item-title item-label">Last Name</div>
-                            <div class="item-input-wrap">
-                              <input type="text" name="lastname" placeholder="Your last name">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
+          </div>
+          <div class="page-content">
+            <div class="block">
+              <p>Imprint content goes here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Sales Rep. ID</div>
-                        <div class="item-input-wrap">
-                          <input type="text" name="zvpartner" placeholder="Your sales rep. ID">
-                        </div>
+    <!-- Modal: Login Screen -->
+    <div class="login-screen" id="login-screen">
+      <div class="view">
+        <div class="page">
+          <div class="page-content login-screen-content">
+            <div class="login-screen-title"><img src="assets/icons/144x144.png"></div>
+            <div class="login-screen-title">Sales App</div>
+            <form id="login">
+              <div class="list">
+                <ul>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Username</div>
+                      <div class="item-input-wrap">
+                        <input type="text" name="username" placeholder="Your username">
                       </div>
                     </div>
                   </li>
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Sales Organisation
-                        </div>
-                        <div class="item-input-wrap">
-                          <select name="vkorg">
-                            <option value=null selected>- please select -</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Distribution Channel</div>
-                        <div class="item-input-wrap">
-                          <select name="vtw">
-                            <option value=null selected>- please select -</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Divisiion</div>
-                        <div class="item-input-wrap">
-                          <select name="spart">
-                            <option value=null selected>- please select -</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Sales Office</div>
-                        <div class="item-input-wrap">
-                          <select name="vkbur">
-                            <option value=null selected>- please select -</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Sales Group</div>
-                        <div class="item-input-wrap">
-                          <select name="vkgrp">
-                            <option value=null selected>- please select -</option>
-                          </select>
-                        </div>
+                  <li class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Password</div>
+                      <div class="item-input-wrap">
+                        <input type="password" name="password" placeholder="Your password">
                       </div>
                     </div>
                   </li>
                 </ul>
-              </form>
-            </div>
+              </div>
+              <div class="list">
+                <ul>
+                  <li>
+                    <a href="#" class="item-link list-button login-button" id="sign-in">Sign In</a>
+                  </li>
+                </ul>
+                <div class="block-footer">
+                  <p>Forgot Username or password?</p>
+                  <p>
+                    <a class="login-screen-close" href="#" data-login-screen="#login-screen">Close Login screen</a>
+                  </p>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-
     </div>
 
+    <!--User Profile-->
+    <div class="popup" id='user-profile'>
+      <div class="page">
+        <div class="view">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+              <div class="left">
+                <a href="#" class="link popup-close">
+                  <i class="icon icon-back"></i>
+                  <span class="if-not-md">Back</span>
+                </a>
+              </div>
+              <div class="title">User Profile</div>
+              <div class="right">
+                <a class="link tg-edit">Edit</a>
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block-title">Your User data and preferences</div>
+            <form class="list form-store-data" id="user-data">
+              <ul>
+                <li>
+                  <div class="row">
+                    <div class="col">
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Surname</div>
+                          <div class="item-input-wrap">
+                            <input type="text" name="surname" placeholder="Your surname">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Last Name</div>
+                          <div class="item-input-wrap">
+                            <input type="text" name="lastname" placeholder="Your last name">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Sales Rep. ID</div>
+                      <div class="item-input-wrap">
+                        <input type="text" name="zvpartner" placeholder="Your sales rep. ID">
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Sales Organisation
+                      </div>
+                      <div class="item-input-wrap">
+                        <select name="vkorg">
+                          <option value=null selected>- please select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Distribution Channel</div>
+                      <div class="item-input-wrap">
+                        <select name="vtw">
+                          <option value=null selected>- please select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Divisiion</div>
+                      <div class="item-input-wrap">
+                        <select name="spart">
+                          <option value=null selected>- please select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Sales Office</div>
+                      <div class="item-input-wrap">
+                        <select name="vkbur">
+                          <option value=null selected>- please select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Sales Group</div>
+                      <div class="item-input-wrap">
+                        <select name="vkgrp">
+                          <option value=null selected>- please select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="panel panel-left panel-cover theme-dark panel-init">
       <div class="view">
         <div class="page">
@@ -341,7 +337,11 @@
     </div>
 
 
+
+
   </div>
+
+
 
   <!-- Framework7 library -->
   <script src="framework7/js/framework7.bundle.min.js"></script>
