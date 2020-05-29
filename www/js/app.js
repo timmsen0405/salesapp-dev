@@ -322,7 +322,7 @@ var testMaterials = [ // will be replaced with backend requests
     grsize: "",
     expclass: "",
     strdev: "",
-    uom: "M3"
+    uom: "MIN"
   },
   {
     matNoInt: "60762261",
@@ -833,19 +833,17 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
 
     var formId = $$(this).parents('form').attr('id');
     var formData = app.form.convertToData('#' + formId);
-    console.log('Search Criteria Before:', formData);
     switch (targetInput.attr('name')) {
       case 'soldto':
-        formData.accountgroup = 'DE01';
+        formData.accountgroup = 'DE01'; // add searchcrit for soldto acc group
         break;
       case 'shipto':
-        formData.accountgroup = 'DES2';
+        formData.accountgroup = 'DES2'; // add searchcrit for shipto acc group
         break;
       default:
         break;
     };
-    console.log('Search Criteria After:', formData);
-    var searchRes = getPartner(formData);
+    var searchRes = getPartner(formData); // replace with request to backend
     console.log('Search Results:', searchRes);
 
     var dTbody = $$(this).parents('.page-content').find('tbody.search-results');
@@ -858,7 +856,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
       var objVals = Object.values(obj);
 
       var tr = $$(document.createElement('tr')).attr('id', obj.partnerID);
-      tr.on('dblclick', function (e) {
+      tr.on('click', function (e) {
         targetInput.val(this.id);
         // Create toast with icon
         var toastTakeOver = app.toast.create({
@@ -945,7 +943,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
     };
   });
 
-  function customizeSearchMask(id) { // Customizing for different search masks
+  function customizeSearchMask(id) { // Customizing different search masks
 
     switch (id) {
       case 'prodSearch': // Product Search Customizing
@@ -978,7 +976,6 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
         showProp = 0;
         return showProp;
     };
-
   };
 
   function buildSearchRes(searchRes, showProp, el) { // Build up data table with search results
@@ -1174,7 +1171,7 @@ $$(document).on('page:beforein', '.page[data-name="form-quot"]', function (e) {
     objVals = Object.values(searchCrit);
 
     // Following return and compare() are for local development and testing only 
-    // and will be replaced in production with backend operations 
+    // and will be replaced in production with backend requests 
 
     var searchRes = testMaterials;
     return searchRes.filter(compare)
